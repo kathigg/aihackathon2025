@@ -1,5 +1,6 @@
 from flask import Flask
 from flask_cors import CORS
+
 # Import all blueprints
 from app.routes.users import users_bp
 from app.routes.auth import auth_bp
