@@ -9,6 +9,7 @@ import Solutions from "./pages/Solutions";
 import Domain from "./pages/Domain";
 import Messages from "./pages/Messages";
 import NotFound from "./pages/NotFound";
+import UsersPage from "./pages/UsersPage";
 
 const queryClient = new QueryClient();
 
@@ -25,7 +26,7 @@ const App = () => (
           <Route path="/d/:slug" element={<Domain />} />
           <Route path="/messages" element={<Messages />} />
           <Route path="/messages/:threadId" element={<Messages />} />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+          <Route path="/users" element={<UsersPage />} /> 
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
