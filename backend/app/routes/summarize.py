@@ -1,10 +1,10 @@
-import openai
+from openai import OpenAI
 import os
 from flask import Blueprint, jsonify, request
 from app.db import get_connection
 
 summarize_post_bp = Blueprint("summarize_post", __name__)
-openai.api_key = os.environ.get("OPENAI_API_KEY")
+client = OpenAI(api_key=os.environ.get("OPENAI_API_KEY"))
 
 def fetch_thread(post_id):
     conn = get_connection()
@@ -42,7 +42,7 @@ def summarize_thread():
             f"Comment: {row.get('comment_text', '')}\n\n"
         )
 
-    response = openai.ChatCompletion.create(
+    response = client.chat.completions.create(
         model="gpt-4o",
         messages=[
             {"role": "system", "content": "Summarize the information"},
