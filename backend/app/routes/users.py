@@ -10,7 +10,7 @@ def get_users():
         return jsonify({"error": "Could not connect to the database"}), 500
 
     cursor = conn.cursor(dictionary=True)
-    cursor.execute("SELECT id, first_name, last_name, user_name, email, pages_following, dod_verified FROM users;")
+    cursor.execute("SELECT id, first_name, last_name, user_name, email, role, pages_following, dod_verified FROM users;")
     users = cursor.fetchall()
     cursor.close()
     conn.close()
