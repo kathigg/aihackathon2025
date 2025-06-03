@@ -15,9 +15,15 @@ const RegisterPage = () => {
   });
   const [error, setError] = useState("");
   const [message, setMessage] = useState("");
+  const [isMilitaryEmail, setIsMilitaryEmail] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
     setForm({ ...form, [e.target.name]: e.target.value });
+
+    if (name === "email") {
+      setIsMilitaryEmail(value.trim().toLowerCase().endsWith(".mil"));
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -48,7 +54,23 @@ const RegisterPage = () => {
         <input name="first_name" placeholder="First Name" onChange={handleChange} className="w-full border p-2 rounded" required />
         <input name="last_name" placeholder="Last Name" onChange={handleChange} className="w-full border p-2 rounded" required />
         <input name="user_name" placeholder="Username" onChange={handleChange} className="w-full border p-2 rounded" required />
-        <input name="email" type="email" placeholder="Email" onChange={handleChange} className="w-full border p-2 rounded" required />
+        <div className="relative">
+  <input
+    name="email"
+    type="email"
+    placeholder="Email"
+    onChange={handleChange}
+    className="w-full border p-2 rounded pr-28"
+    required
+  />
+  {isMilitaryEmail && (
+    <div className="absolute right-3 top-1/2 transform -translate-y-1/2 flex items-center space-x-1 text-green-600 text-sm">
+      <span className="text-lg">✅</span>
+      <span>Verified</span>
+    </div>
+  )}
+</div>
+
         <input name="role" placeholder="Role (e.g. warfighter, technologist)" onChange={handleChange} className="w-full border p-2 rounded" required />
         <input name="password" type="password" placeholder="Password" onChange={handleChange} className="w-full border p-2 rounded" required />
         <button type="submit" className="w-full bg-blue-600 text-white py-2 rounded">
