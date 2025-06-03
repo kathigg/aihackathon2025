@@ -1,49 +1,47 @@
-from openai import OpenAI
+import openai
 import os
 from flask import Blueprint, jsonify, request
 from app.db import get_connection
 
 summarize_post_bp = Blueprint("summarize_post", __name__)
-
-client = OpenAI(
-    api_key=os.environ.get("OPENAI_API_KEY"),
-)
+openai.api_key = os.environ.get("OPENAI_API_KEY")
 
 def fetch_thread(post_id):
-    conn = db.get_connection()
+    conn = get_connection()
     if conn is None:
-        return jsonify({"error": "Could not connect to the database"}), 500
+        return None, {"error": "Could not connect to the database"}, 500
 
     cursor = conn.cursor(dictionary=True)
     cursor.execute("""
         SELECT
-        p.*,
-        c.*,
-        d.*
+        p.*, c.*, d.*
         FROM posts p
         LEFT JOIN comments c ON p.id = c.post_id
         LEFT JOIN drones d ON p.drone_id = d.id
-        WHERE p.id = :post_id
-    """)
+        WHERE p.id = %s
+    """, (post_id,))
     everything = cursor.fetchall()
     cursor.close()
     conn.close()
-    return jsonify(everything)
+    return everything, None, None
 
 @summarize_post_bp.route("/summarize_post", methods=["GET"])
-def summarize_thread(post_id = 1):
-    result = fetch_thread(post_id)
+def summarize_thread():
+    post_id = request.args.get("post_id", default=1, type=int)
+    rows, error, status = fetch_thread(post_id)
+    if error:
+        return jsonify(error), status
+
     prompt = "Summarize the following thread, including post, comments, and drone information:\n\n"
-    for row in results:
-        row_dict = row_to_dict(row)
+    for row in rows:
         prompt += (
-            f"Post Title: {row_dict.get('title', '')}\n"
-            f"Post Content: {row_dict.get('text', '')}\n"
-            f"Drone Name: {row_dict.get('name', '')}\n"
-            f"Drone Features: {row_dict.get('features', '')}\n"
-            f"Comment: {row_dict.get('text', '')}\n\n"
-            # Add other fields as needed
+            f"Post Title: {row.get('title', '')}\n"
+            f"Post Content: {row.get('text', '')}\n"
+            f"Drone Name: {row.get('name', '')}\n"
+            f"Drone Features: {row.get('features', '')}\n"
+            f"Comment: {row.get('comment_text', '')}\n\n"
         )
+
     response = openai.ChatCompletion.create(
         model="gpt-4o",
         messages=[
