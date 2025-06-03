@@ -36,7 +36,7 @@ const mockDomains: Record<string, DomainType> = {
     member_count: 1247,
     challenge_count: 89,
     post_count: 156,
-    isJoined: false
+    isJoined: true,
   },
   'cyber': {
     id: 'cyber',
@@ -46,7 +46,7 @@ const mockDomains: Record<string, DomainType> = {
     member_count: 892,
     challenge_count: 156,
     post_count: 234,
-    isJoined: true
+    isJoined: true,
   },
   'land': {
     id: 'land',
