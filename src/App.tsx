@@ -9,6 +9,7 @@ import Solutions from "./pages/Solutions";
 import Domain from "./pages/Domain";
 import Messages from "./pages/Messages";
 import NotFound from "./pages/NotFound";
+import FeedPage from "./pages/Feed";
 
 const queryClient = new QueryClient();
 
@@ -20,6 +21,7 @@ const App = () => (
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Index />} />
+          <Route path="/feed" element={<FeedPage />} />
           <Route path="/solutions" element={<Solutions />} />
           <Route path="/domain/:slug" element={<Domain />} />
           <Route path="/d/:slug" element={<Domain />} />
