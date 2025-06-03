@@ -12,6 +12,7 @@ import Domain from "./pages/Domain";
 import RegisterPage from "./pages/RegisterPage";
 import Messages from "./pages/Messages";
 import NotFound from "./pages/NotFound";
+import UsersPage from "./pages/UsersPage";
 import FeedPage from "./pages/Feed";
 
 const queryClient = new QueryClient();
@@ -23,16 +24,16 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <Routes>
-        <Route path="/register" element={<RegisterPage />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/" element={<Navigate to="/login" replace />} />
+          <Route path="/register" element={<RegisterPage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/" element={<Navigate to="/login" replace />} />
           <Route path="/feed" element={<Index />} />
           <Route path="/solutions" element={<Solutions />} />
           <Route path="/domain/:slug" element={<Domain />} />
           <Route path="/d/:slug" element={<Domain />} />
           <Route path="/messages" element={<Messages />} />
           <Route path="/messages/:threadId" element={<Messages />} />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+          <Route path="/users" element={<UsersPage />} /> 
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
