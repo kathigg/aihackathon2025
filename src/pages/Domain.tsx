@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Plus, Users, UserPlus, MessageSquare } from 'lucide-react';
@@ -193,47 +192,49 @@ const Domain = () => {
       const filteredPosts = domainPosts.filter(post => post.domain_id === domain.id);
       const pinnedPosts = filteredPosts.filter(post => post.is_pinned);
       const regularPosts = filteredPosts.filter(post => !post.is_pinned);
-
+    
       return (
         <div className="space-y-6">
           {/* New Post Button */}
           {domain.isJoined && (
-            <Dialog open={showNewPostDialog} onOpenChange={setShowNewPostDialog}>
-              <DialogTrigger asChild>
-                <Button className="flex items-center space-x-2">
-                  <Plus className="h-4 w-4" />
-                  <span>New Post</span>
-                </Button>
-              </DialogTrigger>
-              <DialogContent className="max-w-2xl">
-                <DialogHeader>
-                  <DialogTitle>Create New Post in {domain.title}</DialogTitle>
-                </DialogHeader>
-                <div className="space-y-4">
-                  <Input
-                    placeholder="Post title"
-                    value={newPostTitle}
-                    onChange={(e) => setNewPostTitle(e.target.value)}
-                  />
-                  <Textarea
-                    placeholder="What would you like to discuss?"
-                    value={newPostBody}
-                    onChange={(e) => setNewPostBody(e.target.value)}
-                    className="min-h-[120px]"
-                  />
-                  <div className="flex justify-end space-x-2">
-                    <Button variant="outline" onClick={() => setShowNewPostDialog(false)}>
-                      Cancel
-                    </Button>
-                    <Button onClick={handleCreatePost}>
-                      Create Post
-                    </Button>
+            <div className="flex justify-end">
+              <Dialog open={showNewPostDialog} onOpenChange={setShowNewPostDialog}>
+                <DialogTrigger asChild>
+                  <Button className="flex items-center space-x-2 mb-4">
+                    <Plus className="h-4 w-4" />
+                    <span>New Post</span>
+                  </Button>
+                </DialogTrigger>
+                <DialogContent className="max-w-2xl">
+                  <DialogHeader>
+                    <DialogTitle>Create New Post in {domain.title}</DialogTitle>
+                  </DialogHeader>
+                  <div className="space-y-4">
+                    <Input
+                      placeholder="Post title"
+                      value={newPostTitle}
+                      onChange={(e) => setNewPostTitle(e.target.value)}
+                    />
+                    <Textarea
+                      placeholder="What would you like to discuss?"
+                      value={newPostBody}
+                      onChange={(e) => setNewPostBody(e.target.value)}
+                      className="min-h-[120px]"
+                    />
+                    <div className="flex justify-end space-x-2">
+                      <Button variant="outline" onClick={() => setShowNewPostDialog(false)}>
+                        Cancel
+                      </Button>
+                      <Button onClick={handleCreatePost}>
+                        Create Post
+                      </Button>
+                    </div>
                   </div>
-                </div>
-              </DialogContent>
-            </Dialog>
+                </DialogContent>
+              </Dialog>
+            </div>
           )}
-
+    
           {/* Pinned Posts */}
           {pinnedPosts.length > 0 && (
             <div className="space-y-4">
@@ -250,7 +251,7 @@ const Domain = () => {
               ))}
             </div>
           )}
-
+    
           {/* Regular Posts */}
           {regularPosts.length > 0 && (
             <div className="space-y-4">
@@ -267,7 +268,7 @@ const Domain = () => {
               ))}
             </div>
           )}
-
+    
           {/* Challenges */}
           <div className="space-y-4">
             <h3 className="text-lg font-semibold">Active Challenges</h3>
@@ -275,7 +276,6 @@ const Domain = () => {
               challenges={[]}
               onViewChallenge={(id) => console.log('View challenge:', id)}
             />
-            {/* Empty state */}
             <div className="text-center py-8 border-2 border-dashed rounded-lg">
               <h4 className="text-md font-medium mb-2">No challenges yet</h4>
               <p className="text-muted-foreground">
@@ -286,6 +286,7 @@ const Domain = () => {
         </div>
       );
     }
+    
 
     if (domainTab === 'about') {
       return (
