@@ -68,9 +68,6 @@ const DomainTabs: React.FC<DomainTabsProps> = ({
                   <div className="flex-1 cursor-pointer" onClick={() => handleDomainClick(domain.id)}>
                     <div className="flex items-center space-x-2">
                       <span className="text-sm text-slate-300">{domain.name}</span>
-                      <Badge variant="outline" className="text-xs">
-                        {domain.memberCount}
-                      </Badge>
                       <ExternalLink className="h-3 w-3 text-slate-500" />
                     </div>
                   </div>
@@ -132,12 +129,11 @@ const DomainTabs: React.FC<DomainTabsProps> = ({
                 <div className="flex-1 cursor-pointer" onClick={() => handleDomainClick(domain.id)}>
                   <div className="flex items-center space-x-2">
                     <span className="text-sm text-slate-300">{domain.name}</span>
-                    <Badge variant="outline" className="text-xs">
-                      {domain.memberCount}
-                    </Badge>
-                    <ExternalLink className="h-3 w-3 text-slate-500" />
                   </div>
                   <p className="text-xs text-slate-500 mt-1">{domain.description}</p>
+                  <div>
+                    <span className="text-green-500">{domain.memberCount} members</span>
+                  </div>
                 </div>
                 <Button
                   variant="ghost"
