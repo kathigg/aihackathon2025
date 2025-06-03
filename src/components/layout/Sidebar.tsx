@@ -7,6 +7,7 @@ import { Badge } from '@/components/ui/badge';
 import { cn } from '@/lib/utils';
 import DomainTabs from '@/components/domains/DomainTabs';
 
+
 interface Domain {
   id: string;
   name: string;
@@ -114,6 +115,8 @@ const Sidebar: React.FC<SidebarProps> = ({
   const handleNavigation = (item: any) => {
     if (item.id === 'messages') {
       navigate('/messages');
+    } else if (item.id === 'feed') {
+      navigate('/feed'); // ✅ Navigates using react-router-dom
     } else {
       onTabChange(item.id);
     }
