@@ -14,6 +14,7 @@ const demoFeedPosts: DomainPost[] = [
     body: 'Operators are reporting unreliable GPS and video link. Looking for practical mitigation strategies or proven hardware solutions.',
     author_id: '5',
     author: {
+      
       id: '5',
       username: 'recon.tech',
       email: 'recon@army.mil',
