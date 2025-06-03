@@ -54,8 +54,7 @@ A secure collaboration platform where warfighters post tactical problems and sol
 ### Local Development
 ```bash
 # Clone and install
-git clone <repo-url>
-cd dronewerx-platform
+git clone https://github.com/kathigg/aihackathon2025.git
 npm install
 
 # Start Supabase (requires Docker)
