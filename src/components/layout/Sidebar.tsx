@@ -149,57 +149,59 @@ const Sidebar: React.FC<SidebarProps> = ({
   };
 
   return (
-    <aside className={cn(
-      "bg-slate-900 border-r border-slate-700 transition-all duration-300 overflow-hidden",
-      isOpen ? "w-64" : "w-0 lg:w-16"
-    )}>
-      <div className="p-4 space-y-6">
-        {/* Navigation */}
-        <nav className="space-y-2">
-          {navigation.map((item) => (
-            <Button
-              key={item.id}
-              variant={activeTab === item.id ? "secondary" : "ghost"}
-              className={cn(
-                "w-full justify-start text-left",
-                activeTab === item.id 
-                  ? "bg-blue-600 hover:bg-blue-700 text-white" 
-                  : "text-slate-300 hover:text-white hover:bg-slate-800",
-                !isOpen && "lg:justify-center"
-              )}
-              onClick={() => handleNavigation(item)}
-            >
-              <item.icon className="h-5 w-5 shrink-0" />
-              {(isOpen || item.badge) && (
-                <span className={cn(
-                  "ml-3 truncate",
-                  !isOpen && "lg:hidden"
-                )}>
-                  {item.name}
-                </span>
-              )}
-              {item.badge && (
-                <Badge variant="destructive" className="ml-auto">
-                  {item.badge}
-                </Badge>
-              )}
-            </Button>
-          ))}
-        </nav>
+    <div className="bg-slate-900 min-h-screen">
+      <aside className={cn(
+        "bg-slate-900 border-r border-slate-700 transition-all duration-300 overflow-hidden",
+        isOpen ? "w-64" : "w-0 lg:w-16"
+      )}>
+        <div className="p-4 space-y-6">
+          {/* Navigation */}
+          <nav className="space-y-2">
+            {navigation.map((item) => (
+              <Button
+                key={item.id}
+                variant={activeTab === item.id ? "secondary" : "ghost"}
+                className={cn(
+                  "w-full justify-start text-left",
+                  activeTab === item.id 
+                    ? "bg-blue-600 hover:bg-blue-700 text-white" 
+                    : "text-slate-300 hover:text-white hover:bg-slate-800",
+                  !isOpen && "lg:justify-center"
+                )}
+                onClick={() => handleNavigation(item)}
+              >
+                <item.icon className="h-5 w-5 shrink-0" />
+                {(isOpen || item.badge) && (
+                  <span className={cn(
+                    "ml-3 truncate",
+                    !isOpen && "lg:hidden"
+                  )}>
+                    {item.name}
+                  </span>
+                )}
+                {item.badge && (
+                  <Badge variant="destructive" className="ml-auto">
+                    {item.badge}
+                  </Badge>
+                )}
+              </Button>
+            ))}
+          </nav>
 
-        {/* Domain Filters */}
-        <DomainTabs
-          isOpen={isOpen}
-          joinedDomains={joinedDomains}
-          availableDomains={availableDomains}
-          onJoinDomain={handleJoinDomain}
-          onLeaveDomain={handleLeaveDomain}
-          onDomainSelect={handleDomainSelect}
-          selectedDomain={selectedDomain}
-          selectedTab={selectedDomainTab}
-        />
-      </div>
-    </aside>
+          {/* Domain Filters */}
+          <DomainTabs
+            isOpen={isOpen}
+            joinedDomains={joinedDomains}
+            availableDomains={availableDomains}
+            onJoinDomain={handleJoinDomain}
+            onLeaveDomain={handleLeaveDomain}
+            onDomainSelect={handleDomainSelect}
+            selectedDomain={selectedDomain}
+            selectedTab={selectedDomainTab}
+          />
+        </div>
+      </aside>
+    </div>
   );
 };
 
