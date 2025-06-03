@@ -431,20 +431,26 @@ const [postComments, setPostComments] = useState<Record<string, string[]>>({});
             
           </div>
           <Dialog open={!!selectedPost} onOpenChange={() => setSelectedPost(null)}>
-  <DialogContent className="max-w-2xl">
-    <DialogHeader>
-      <DialogTitle>{selectedPost?.title}</DialogTitle>
-    </DialogHeader>
-    {selectedPost && (
-      <div className="space-y-4">
-        <div className="text-sm text-muted-foreground">
-          Posted by <strong>{selectedPost.author.username}</strong> on{" "}
+          <DialogContent className="w-full max-w-5xl h-[90vh] p-6 overflow-hidden">
+  {selectedPost && (
+    <div className="flex flex-col h-full">
+      {/* Top Section (Title + Meta) */}
+      <div className="space-y-1 mb-2">
+        <h2 className="text-2xl font-bold leading-tight">
+          {selectedPost.title}
+        </h2>
+        <p className="text-sm text-muted-foreground">
+          Posted by <strong>{selectedPost.author.username}</strong>{" "}
+          (<span className="capitalize">{selectedPost.author.role}</span>) on{" "}
           {new Date(selectedPost.created_at).toLocaleDateString()}
-        </div>
+        </p>
+      </div>
 
+      {/* Scrollable Post Body + Comments */}
+      <div className="flex-1 overflow-y-auto space-y-6 pr-2">
         <div className="text-base whitespace-pre-wrap">{selectedPost.body}</div>
 
-        <div className="text-sm text-muted-foreground flex space-x-4 items-center">
+        <div className="flex items-center text-sm text-muted-foreground space-x-4">
         <VoteButtons
   postId={selectedPost.id}
   upvotes={selectedPost.upvotes}
@@ -452,7 +458,6 @@ const [postComments, setPostComments] = useState<Record<string, string[]>>({});
 />
         </div>
 
-        {/* Comments Section */}
         <div className="border-t pt-4 space-y-2">
           <h4 className="text-md font-medium">Comments</h4>
           <div className="space-y-2 max-h-48 overflow-y-auto">
@@ -474,7 +479,10 @@ const [postComments, setPostComments] = useState<Record<string, string[]>>({});
                 if (!newComment.trim()) return;
                 setPostComments(prev => ({
                   ...prev,
-                  [selectedPost.id]: [...(prev[selectedPost.id] || []), newComment.trim()]
+                  [selectedPost.id]: [
+                    ...(prev[selectedPost.id] || []),
+                    newComment.trim(),
+                  ],
                 }));
                 setNewComment('');
               }}
@@ -484,8 +492,10 @@ const [postComments, setPostComments] = useState<Record<string, string[]>>({});
           </div>
         </div>
       </div>
-    )}
-  </DialogContent>
+    </div>
+  )}
+</DialogContent>
+
 </Dialog>
 
         </main>
