@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Paperclip } from 'lucide-react';
+import { VoteButtons } from '@/components/ui/VoteButtons';
 import { Plus, Users, UserPlus, MessageSquare } from 'lucide-react';
 import Header from '@/components/layout/Header';
 import Sidebar from '@/components/layout/Sidebar';
@@ -29,6 +30,7 @@ const mockUser = {
 };
 
 const mockDomains: Record<string, DomainType> = {
+  
   'air': {
     id: 'air',
     slug: 'air',
@@ -104,6 +106,9 @@ const mockDomainPosts: DomainPost[] = [
 ];
 
 const Domain = () => {
+  const [selectedPost, setSelectedPost] = useState<DomainPost | null>(null);
+const [newComment, setNewComment] = useState('');
+const [postComments, setPostComments] = useState<Record<string, string[]>>({});
   const { slug } = useParams<{ slug: string }>();
   const [activeTab, setActiveTab] = useState('feed');
   const [sidebarOpen, setSidebarOpen] = useState(true);
@@ -242,12 +247,15 @@ const Domain = () => {
               <h3 className="text-lg font-semibold text-green-700">Pinned Posts</h3>
               {pinnedPosts.map((post) => (
                 <DomainPostCard
-                  key={post.id}
-                  post={post}
-                  onUpvote={() => handlePostVote(post.id, 'up')}
-                  onDownvote={() => handlePostVote(post.id, 'down')}
-                  onComment={(id) => console.log('Comment on post:', id)}
-                  onView={(id) => console.log('View post:', id)}
+                key={post.id}
+                post={post}
+                onUpvote={() => handlePostVote(post.id, 'up')}
+                onDownvote={() => handlePostVote(post.id, 'down')}
+                onComment={(id) => console.log('Comment on post:', id)}
+                onView={(id) => {
+                  const postToView = domainPosts.find(p => p.id === id);
+                  if (postToView) setSelectedPost(postToView);
+                }}
                 />
               ))}
             </div>
@@ -418,8 +426,68 @@ const Domain = () => {
                   {renderDomainContent()}
                 </TabsContent>
               </Tabs>
+              
             </div>
+            
           </div>
+          <Dialog open={!!selectedPost} onOpenChange={() => setSelectedPost(null)}>
+  <DialogContent className="max-w-2xl">
+    <DialogHeader>
+      <DialogTitle>{selectedPost?.title}</DialogTitle>
+    </DialogHeader>
+    {selectedPost && (
+      <div className="space-y-4">
+        <div className="text-sm text-muted-foreground">
+          Posted by <strong>{selectedPost.author.username}</strong> on{" "}
+          {new Date(selectedPost.created_at).toLocaleDateString()}
+        </div>
+
+        <div className="text-base whitespace-pre-wrap">{selectedPost.body}</div>
+
+        <div className="text-sm text-muted-foreground flex space-x-4 items-center">
+        <VoteButtons
+  postId={selectedPost.id}
+  upvotes={selectedPost.upvotes}
+  downvotes={selectedPost.downvotes}
+/>
+        </div>
+
+        {/* Comments Section */}
+        <div className="border-t pt-4 space-y-2">
+          <h4 className="text-md font-medium">Comments</h4>
+          <div className="space-y-2 max-h-48 overflow-y-auto">
+            {(postComments[selectedPost.id] || []).map((comment, i) => (
+              <div key={i} className="bg-muted p-2 rounded text-sm">
+                {comment}
+              </div>
+            ))}
+          </div>
+
+          <div className="flex space-x-2 pt-2">
+            <Input
+              value={newComment}
+              onChange={(e) => setNewComment(e.target.value)}
+              placeholder="Write a comment..."
+            />
+            <Button
+              onClick={() => {
+                if (!newComment.trim()) return;
+                setPostComments(prev => ({
+                  ...prev,
+                  [selectedPost.id]: [...(prev[selectedPost.id] || []), newComment.trim()]
+                }));
+                setNewComment('');
+              }}
+            >
+              Post
+            </Button>
+          </div>
+        </div>
+      </div>
+    )}
+  </DialogContent>
+</Dialog>
+
         </main>
       </div>
     </div>
