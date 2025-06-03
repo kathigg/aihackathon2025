@@ -29,8 +29,8 @@ const Header: React.FC<HeaderProps> = ({ onMenuToggle, user }) => {
             <div className="flex items-center space-x-2">
               <Shield className="h-8 w-8 text-blue-400" />
               <div className="hidden sm:block">
-                <h1 className="text-xl font-bold text-white">DroneWERX</h1>
-                <p className="text-xs text-slate-300">White List Platform</p>
+                <h1 className="text-xl font-bold text-white">StrikeStack</h1>
+                <p className="text-xs text-slate-300">Drone White List Platform</p>
               </div>
             </div>
           </div>
