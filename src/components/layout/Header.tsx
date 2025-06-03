@@ -40,8 +40,12 @@ const Header: React.FC<HeaderProps> = ({ onMenuToggle, user }) => {
               <Menu className="h-5 w-5" />
             </Button>
 
-            <div className="flex items-center space-x-2">
-              <Shield className="h-8 w-8 text-blue-400" />
+            <div className="flex items-center space-x-6">
+              <img
+                src="ChatGPT Image Jun 3, 2025 at 11_45_06 AM.png"
+                alt="ChatGPT Icon"
+                className="h-24 w-24"
+              />
               <div className="hidden sm:block">
                 <h1 className="text-xl font-bold text-white">StrikeStack</h1>
                 <p className="text-xs text-slate-300">Drone White List Platform</p>
