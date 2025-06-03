@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { Paperclip } from 'lucide-react';
+import { VoteButtons } from '@/components/ui/VoteButtons';
 import { Plus, Users, UserPlus, MessageSquare } from 'lucide-react';
 import Header from '@/components/layout/Header';
 import Sidebar from '@/components/layout/Sidebar';
@@ -28,6 +30,7 @@ const mockUser = {
 };
 
 const mockDomains: Record<string, DomainType> = {
+  
   'air': {
     id: 'air',
     slug: 'air',
@@ -103,6 +106,9 @@ const mockDomainPosts: DomainPost[] = [
 ];
 
 const Domain = () => {
+  const [selectedPost, setSelectedPost] = useState<DomainPost | null>(null);
+const [newComment, setNewComment] = useState('');
+const [postComments, setPostComments] = useState<Record<string, string[]>>({});
   const { slug } = useParams<{ slug: string }>();
   const [activeTab, setActiveTab] = useState('feed');
   const [sidebarOpen, setSidebarOpen] = useState(true);
@@ -241,12 +247,15 @@ const Domain = () => {
               <h3 className="text-lg font-semibold text-green-700">Pinned Posts</h3>
               {pinnedPosts.map((post) => (
                 <DomainPostCard
-                  key={post.id}
-                  post={post}
-                  onUpvote={() => handlePostVote(post.id, 'up')}
-                  onDownvote={() => handlePostVote(post.id, 'down')}
-                  onComment={(id) => console.log('Comment on post:', id)}
-                  onView={(id) => console.log('View post:', id)}
+                key={post.id}
+                post={post}
+                onUpvote={() => handlePostVote(post.id, 'up')}
+                onDownvote={() => handlePostVote(post.id, 'down')}
+                onComment={(id) => console.log('Comment on post:', id)}
+                onView={(id) => {
+                  const postToView = domainPosts.find(p => p.id === id);
+                  if (postToView) setSelectedPost(postToView);
+                }}
                 />
               ))}
             </div>
@@ -417,8 +426,78 @@ const Domain = () => {
                   {renderDomainContent()}
                 </TabsContent>
               </Tabs>
+              
             </div>
+            
           </div>
+          <Dialog open={!!selectedPost} onOpenChange={() => setSelectedPost(null)}>
+          <DialogContent className="w-full max-w-5xl h-[90vh] p-6 overflow-hidden">
+  {selectedPost && (
+    <div className="flex flex-col h-full">
+      {/* Top Section (Title + Meta) */}
+      <div className="space-y-1 mb-2">
+        <h2 className="text-2xl font-bold leading-tight">
+          {selectedPost.title}
+        </h2>
+        <p className="text-sm text-muted-foreground">
+          Posted by <strong>{selectedPost.author.username}</strong>{" "}
+          (<span className="capitalize">{selectedPost.author.role}</span>) on{" "}
+          {new Date(selectedPost.created_at).toLocaleDateString()}
+        </p>
+      </div>
+
+      {/* Scrollable Post Body + Comments */}
+      <div className="flex-1 overflow-y-auto space-y-6 pr-2">
+        <div className="text-base whitespace-pre-wrap">{selectedPost.body}</div>
+
+        <div className="flex items-center text-sm text-muted-foreground space-x-4">
+        <VoteButtons
+  postId={selectedPost.id}
+  upvotes={selectedPost.upvotes}
+  downvotes={selectedPost.downvotes}
+/>
+        </div>
+
+        <div className="border-t pt-4 space-y-2">
+          <h4 className="text-md font-medium">Comments</h4>
+          <div className="space-y-2 max-h-48 overflow-y-auto">
+            {(postComments[selectedPost.id] || []).map((comment, i) => (
+              <div key={i} className="bg-muted p-2 rounded text-sm">
+                {comment}
+              </div>
+            ))}
+          </div>
+
+          <div className="flex space-x-2 pt-2">
+            <Input
+              value={newComment}
+              onChange={(e) => setNewComment(e.target.value)}
+              placeholder="Write a comment..."
+            />
+            <Button
+              onClick={() => {
+                if (!newComment.trim()) return;
+                setPostComments(prev => ({
+                  ...prev,
+                  [selectedPost.id]: [
+                    ...(prev[selectedPost.id] || []),
+                    newComment.trim(),
+                  ],
+                }));
+                setNewComment('');
+              }}
+            >
+              Post
+            </Button>
+          </div>
+        </div>
+      </div>
+    </div>
+  )}
+</DialogContent>
+
+</Dialog>
+
         </main>
       </div>
     </div>
