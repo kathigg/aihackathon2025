@@ -4,7 +4,7 @@ export default function UsersPage() {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
-    fetch('http://localhost:5000/api/users')
+    fetch('http://localhost:5000/users')
       .then(res => res.json())
       .then(data => setUsers(data));
   }, []);
