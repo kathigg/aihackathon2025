@@ -1,10 +1,13 @@
 from openai import OpenAI
 import os
+from dotenv import load_dotenv
 from flask import Blueprint, jsonify, request
 from app.db import get_connection
 
-summarize_post_bp = Blueprint("summarize_post", __name__)
+load_dotenv()
 client = OpenAI(api_key=os.environ.get("OPENAI_API_KEY"))
+
+summarize_post_bp = Blueprint("summarize_post", __name__)
 
 def fetch_thread(post_id):
     conn = get_connection()
