@@ -94,7 +94,8 @@ npm run dev
 ### Challenge Submission
 1. Warfighter creates challenge post
 2. Selects classification level
-3. Auto-queued for OPSEC review
+3. Auto-queued for OPSEC revi<img width="1710" alt="Screenshot 2025-06-04 at 1 48 57 PM" src="https://github.com/user-attachments/assets/64c4ed94-8fe2-4ae0-adfe-957c2104086f" />
+ew
 4. Published after approval
 
 ### Solution Development
