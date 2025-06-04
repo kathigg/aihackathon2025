@@ -52,6 +52,7 @@ A secure collaboration platform where warfighters post tactical problems and sol
 # Clone and install
 git clone https://github.com/kathigg/aihackathon2025.git
 npm install
+```
 
 ### Backend 
 # Flask Backend with MySQL Connector
@@ -59,6 +60,7 @@ npm install
 This is a simple Flask backend that connects to a MySQL database using `mysql-connector-python`, designed to work with a React frontend.
 
 More information about the backend, and how to run it, can be found under the backend folder on the Readme. 
+
 
 ## 📋 Deliverables Mapping
 
