@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Home, Plus, Archive, Shield, Settings, Target, MessageSquare } from 'lucide-react';
+import { Home, Plus, Archive, Shield, Settings, Target, MessageSquare, ShoppingBag } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { cn } from '@/lib/utils';
@@ -101,7 +101,7 @@ const Sidebar: React.FC<SidebarProps> = ({
     { id: 'create', name: 'New Challenge', icon: Plus, description: 'Submit problem' },
     { id: 'solutions', name: 'Solutions', icon: Target, description: 'Browse solutions' },
     { id: 'messages', name: 'Messages', icon: MessageSquare, description: 'Direct messages', badge: 3 },
-    { id: 'archive', name: 'Archive', icon: Archive, description: 'Historical threads' },
+    { id: 'marketplace', name: 'Marketplace', icon: ShoppingBag, description: 'View drones' },
     { 
       id: 'moderation', 
       name: 'Moderation', 
@@ -117,6 +117,8 @@ const Sidebar: React.FC<SidebarProps> = ({
       navigate('/messages');
     } else if (item.id === 'feed') {
       navigate('/feed'); // ✅ Navigates using react-router-dom
+    } else if (item.id === 'marketplace') {
+        navigate('/marketplace');
     } else {
       onTabChange(item.id);
     }

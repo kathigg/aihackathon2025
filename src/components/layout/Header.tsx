@@ -3,6 +3,7 @@ import { Shield, Search, Bell, User, Menu } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
+import Image from "next/image";
 
 
 interface HeaderProps {
@@ -43,7 +44,7 @@ const Header: React.FC<HeaderProps> = ({ onMenuToggle, user }) => {
 
             <div className="flex items-center space-x-6">
               <img
-                src="ChatGPT Image Jun 3, 2025 at 11_45_06 AM.png"
+                src="/public/drone.png"
                 alt="ChatGPT Icon"
                 className="h-24 w-24"
               />

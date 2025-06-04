@@ -14,6 +14,7 @@ import Messages from "./pages/Messages";
 import NotFound from "./pages/NotFound";
 import UsersPage from "./pages/UsersPage";
 import FeedPage from "./pages/Feed";
+import Marketplace from "./pages/Marketplace";
 
 const queryClient = new QueryClient();
 
@@ -29,6 +30,7 @@ const App = () => (
           <Route path="/" element={<Navigate to="/login" replace />} />
           <Route path="/feed" element={<Index />} />
           <Route path="/solutions" element={<Solutions />} />
+          <Route path="/marketplace" element={<Marketplace />} />
           <Route path="/domain/:slug" element={<Domain />} />
           <Route path="/d/:slug" element={<Domain />} />
           <Route path="/messages" element={<Messages />} />
