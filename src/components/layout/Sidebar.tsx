@@ -119,6 +119,8 @@ const Sidebar: React.FC<SidebarProps> = ({
       navigate('/feed'); // ✅ Navigates using react-router-dom
     } else if (item.id === 'marketplace') {
         navigate('/marketplace');
+      } else if (item.id === 'solutions') {
+        navigate('/solutions');
     } else {
       onTabChange(item.id);
     }
