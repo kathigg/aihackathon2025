@@ -7,7 +7,7 @@ comments_bp = Blueprint("comments", __name__)
 def get_comments(post_id):
     conn = get_connection()
     cursor = conn.cursor(dictionary=True)
-    cursor.execute("SELECT * FROM comments WHERE post_id=%s", (post_id,))
+    cursor.execute("SELECT * FROM comments WHERE post_id=%s ORDER BY time_stamp DESC", (post_id,))
     comments = cursor.fetchall()
     cursor.close()
     conn.close()
@@ -17,7 +17,7 @@ def get_comments(post_id):
 def get_comment_by_id(comment_id):
     conn = get_connection()
     cursor = conn.cursor(dictionary=True)
-    cursor.execute("SELECT * FROM comments WHERE id=%s", (comment_id,))
+    cursor.execute("SELECT * FROM comments WHERE id=%s ORDER BY time_stamp DESC", (comment_id,))
     comment = cursor.fetchone()
     cursor.close()
     conn.close()
