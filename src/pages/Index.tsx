@@ -8,17 +8,12 @@ import CreateChallenge from '@/components/challenges/CreateChallenge';
 import ModerationQueue from '@/components/moderation/ModerationQueue';
 import { Challenge, Solution } from '@/types';
 
-// Mock data for demonstration
-const mockUser = {
-  id: '1',
-  username: 'john.doe',
-  email: 'john.doe@mil.gov',
-  role: 'warfighter' as const,
-  verified_dod: true,
-  karma_points: 150,
-  created_at: '2024-01-01',
-  last_active: '2024-06-02'
-};
+const storedUser = localStorage.getItem("user");
+const mockUser = storedUser ? JSON.parse(storedUser) : null;
+
+const user = JSON.parse(localStorage.getItem("user") || "{}");
+user.karma_points = 50;
+localStorage.setItem("user", JSON.stringify(user));
 
 const mockChallenges: Challenge[] = [
   {

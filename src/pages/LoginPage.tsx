@@ -14,9 +14,13 @@ const LoginPage = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError("");
+    setError(""); 
     try {
       const res = await axios.post("http://localhost:5000/login", form);
+      const user = {
+        ...res.data.user,
+        verified_dod: res.data.user.email?.toLowerCase().endsWith(".mil") || false
+      };
       localStorage.setItem("user", JSON.stringify(res.data.user));
       navigate("/feed"); // or home page
     } catch (err: any) {

@@ -33,6 +33,15 @@ const RegisterPage = () => {
       const res = await axios.post("http://localhost:5000/register", form, {
         headers: { "Content-Type": "application/json" }
       });
+      const user = {
+        ...form,
+        karma_points: 15,
+        verified_dod: form.email.toLowerCase().endsWith(".mil")
+      };
+      
+      localStorage.setItem("user", JSON.stringify(user));
+      navigate("/login");
+      
       setMessage(res.data.message);
       setTimeout(() => navigate("/login"), 1500);
     } catch (err: unknown) {
