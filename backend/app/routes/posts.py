@@ -72,3 +72,17 @@ def get_drones():
     cursor.close()
     conn.close()
     return jsonify(drones)
+
+@posts_bp.route("/posts/with-drone/page/<string:page>", methods=["GET"])
+def get_posts_with_drone_by_page(page):
+    conn = get_connection()
+    cursor = conn.cursor(dictionary=True)
+    cursor.execute("""
+        SELECT * FROM posts 
+        WHERE drone_id IS NOT NULL AND page = %s 
+        ORDER BY time_stamp DESC
+    """, (page,))
+    posts = cursor.fetchall()
+    cursor.close()
+    conn.close()
+    return jsonify(posts)
