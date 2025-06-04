@@ -7,7 +7,7 @@ posts_bp = Blueprint("posts", __name__)
 def get_posts():
     conn = get_connection()
     cursor = conn.cursor(dictionary=True)
-    cursor.execute("SELECT * FROM posts")
+    cursor.execute("SELECT * FROM posts ORDER BY time_stamp DESC")
     posts = cursor.fetchall()
     cursor.close()
     conn.close()
@@ -17,7 +17,7 @@ def get_posts():
 def get_posts_by_page(page):
     conn = get_connection()
     cursor = conn.cursor(dictionary=True)
-    cursor.execute("SELECT * FROM posts WHERE page=%s", (page,))
+    cursor.execute("SELECT * FROM posts WHERE page=%s ORDER BY time_stamp DESC", (page,))
     posts = cursor.fetchall()
     cursor.close()
     conn.close()
@@ -52,3 +52,23 @@ def create_post():
     cursor.close()
     conn.close()
     return jsonify({"message": "Post created"})
+
+@posts_bp.route("/posts/with-drone", methods=["GET"])
+def get_posts_with_drone_id():
+    conn = get_connection()
+    cursor = conn.cursor(dictionary=True)
+    cursor.execute("SELECT * FROM posts WHERE drone_id IS NOT NULL ORDER BY time_stamp DESC")
+    posts = cursor.fetchall()
+    cursor.close()
+    conn.close()
+    return jsonify(posts)
+
+@posts_bp.route("/drones", methods=["GET"])
+def get_drones():
+    conn = get_connection()
+    cursor = conn.cursor(dictionary=True)
+    cursor.execute("SELECT * FROM drones")
+    drones = cursor.fetchall()
+    cursor.close()
+    conn.close()
+    return jsonify(drones)
