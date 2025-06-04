@@ -1,12 +1,12 @@
 
-# DroneWERX White List Platform
-## The Warfighter's Reddit
+# StrikeStack
+## The Warfighter's Reddit, Reinvented 
 
 A secure collaboration platform where warfighters post tactical problems and solution-providers answer them.
 
 ## 🎯 Mission Critical Features
 
-### Mandatory Capabilities ✅
+### Platform Capabilities ✅
 - ✅ Secure or anonymous challenge submission from verified DoD users
 - ✅ Concept posts and responses from solution providers (academia, startups, industry)
 - ✅ Community features: upvoting, tags, video submission overviews, TRL levels, urgency labels, domains
@@ -15,20 +15,17 @@ A secure collaboration platform where warfighters post tactical problems and sol
 - ✅ Searchable archive of historical threads
 
 ### Security & Compliance ✅
-- ✅ PII isolation with encrypted storage
+- ✅ Role-based authentication and access
+- ✅ Verification of .mil addresses (DoD Access)
 - ✅ OPSEC moderation queue with approve/redact/reject actions
-- ✅ Tamper-evident audit log
-- ✅ Classification banners (Red/Yellow/Green)
+- ✅ Classification banners by security (Red/Yellow/Green)
 
 ## 🏗️ Architecture
 
 ### Tech Stack
-- **Frontend:** React 18 + TypeScript + Tailwind CSS
-- **Backend:** Supabase (PostgreSQL + RLS)
-- **Auth:** Supabase Auth + DoD SSO placeholder
-- **Realtime:** Supabase Realtime
-- **Search:** PostgreSQL full-text + pgvector similarity
-- **Security:** Row-Level Security, encrypted PII storage
+- **Frontend:** React 18 + TypeScript + Tailwind CSS + Node.js
+- **Backend:** MySQL + Flask + AWS + EC2 Instance 
+- **Search:** OpenAI + MySQL + Flask
 
 ### Project Structure
 ```
@@ -39,7 +36,6 @@ A secure collaboration platform where warfighters post tactical problems and sol
 │   ├── hooks/              # Custom hooks
 │   ├── types/              # TypeScript definitions
 │   └── lib/                # Utilities
-├── supabase/               # Database schema & policies
 ├── docs/                   # Documentation
 └── public/                 # Static assets
 ```
@@ -48,22 +44,75 @@ A secure collaboration platform where warfighters post tactical problems and sol
 
 ### Prerequisites
 - Node.js 18+
-- Supabase CLI
+- Axios
 - Git
 
 ### Local Development
 ```bash
 # Clone and install
-git clone <repo-url>
-cd dronewerx-platform
+git clone https://github.com/kathigg/aihackathon2025.git
 npm install
 
-# Start Supabase (requires Docker)
-npx supabase start
+### Backend 
+# Flask Backend with MySQL Connector
 
-# Run development server
-npm run dev
+This is a simple Flask backend that connects to a MySQL database using `mysql-connector-python`, designed to work with a React frontend.
+
+---
+
+## 📦 Requirements
+
+- Python 3.8+
+- MySQL Server
+- pip (Python package installer)
+
+---
+
+## ⚙️ Environment Setup
+
+1. **Clone the project** (or navigate into `backend/`).
+
+2. **Create a `.env` file** in the `backend/` folder with the following structure: 
 ```
+DB_HOST=ip
+DB_PORT=3306
+DB_USER=root
+DB_PASSWORD=yourpassword
+DB_NAME=yourdbname
+```
+
+3. **Make/Activate your Venv and Install dependencies**:
+
+cd into your backend!
+
+Make your venv (only do this once, in the future you can skip this step):
+```
+python -m venv venv 
+```
+
+Activate your Venv. On macOS/Linux:
+```
+source venv/bin/activate
+```
+On Windows
+```
+venv\Scripts\activate
+```
+
+Then run: 
+```
+pip install -r requirements.txt
+```
+
+4. **Run the backend**:
+```
+python run.py
+```
+
+
+
+```
+
 
 ## 📋 Deliverables Mapping
 
