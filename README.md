@@ -111,6 +111,15 @@ More information about the backend, and how to run it, can be found under the ba
 ## Marketplace Page: 
 <img width="1710" alt="Screenshot 2025-06-04 at 1 48 57 PM" src="https://github.com/user-attachments/assets/64c4ed94-8fe2-4ae0-adfe-957c2104086f" />
 
+## Solutions Archive: 
+<img width="1710" alt="Screenshot 2025-06-04 at 1 48 52 PM" src="https://github.com/user-attachments/assets/7232bc2b-e879-43c0-92b1-ff4519ec1a03" />
+
+## Account Creation and Role-Based Authentication: 
+<img width="674" alt="Screenshot 2025-06-04 at 9 14 17 AM" src="https://github.com/user-attachments/assets/8dacb4dd-4a23-4c65-834b-d41bb95b6b63" />
+
+## Demo Video: 
+
+https://github.com/user-attachments/assets/b289be40-a786-42c9-91da-61fd421313bd
 
 
 ## 📊 Future Enhancements
