@@ -4,6 +4,11 @@
 
 A secure collaboration platform where warfighters post tactical problems and solution-providers answer them.
 
+## Demo Video: 
+
+https://github.com/user-attachments/assets/cbd4b765-7199-4a78-ab77-c408941f48cc
+
+
 ## 🎯 Mission Critical Features
 
 ### Platform Capabilities ✅
@@ -116,10 +121,6 @@ More information about the backend, and how to run it, can be found under the ba
 
 ## Account Creation and Role-Based Authentication: 
 <img width="674" alt="Screenshot 2025-06-04 at 9 14 17 AM" src="https://github.com/user-attachments/assets/8dacb4dd-4a23-4c65-834b-d41bb95b6b63" />
-
-## Demo Video: 
-
-https://github.com/user-attachments/assets/b289be40-a786-42c9-91da-61fd421313bd
 
 
 ## 📊 Future Enhancements
